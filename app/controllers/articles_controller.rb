@@ -1,4 +1,6 @@
 class ArticlesController < ApplicationController
+  before_filter :authenticate_user!, :except => [:index, :show]
+
   def index
     @articles = Article.all
   end
@@ -17,6 +19,7 @@ class ArticlesController < ApplicationController
 
   def create
     @article = Article.new params[:article]
+    @article.user_id = current_user.id
     if @article.valid?
       @article.save
       redirect_to root_url, :notice => "New article created"
@@ -27,6 +30,7 @@ class ArticlesController < ApplicationController
 
   def update
     @article = Article.new params[:article]
+    @article.user_id = current_user.id
     if @article.valid?
       @article.save
       redirect_to root_url, :notice => "Article updated."

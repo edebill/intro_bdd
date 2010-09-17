@@ -4,9 +4,15 @@ Feature: Editing an existing article
   I want to edit an article
 
   Scenario: Editing existing article
-    Given the following article exists:
+    Given the following confirmed user exists:
+      | Email              |
+      | user@example.com   |
+
+   Given the following article exists:
       | Title            | 
       | Existing article | 
+
+    When I am logged in as "user@example.com"
       And I am on the home page
       And I follow "Existing article"
       And I follow "Edit"

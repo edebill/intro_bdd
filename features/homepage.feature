@@ -3,10 +3,13 @@ Feature: Hello World
   As a web browser
   I want my test to check for Hello World
 
-  Scenario: Viewing the page
+  Background:
     Given the following article exists:
     | title      | body     |
     | Some title | somebody |
+    And the article "Some title" was written by "user@example.com"
+
+  Scenario: Viewing the page
 
     Given I am on the home page
     Then I should see "Some title"
@@ -17,4 +20,8 @@ Feature: Hello World
     
     When I follow "Some title"
     Then I should see "somebody"
+    
+  Scenario: Articles with authors
+    Given I am on the home page
+    Then I should see "user@example.com" within "article .author"
     
